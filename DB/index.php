@@ -2,6 +2,10 @@
 include("Client.php");
 
 $client = new Client();
-$result = $client->getClients();
+$result = $client->getAllClients();
+
+
+
+
 
 ?>

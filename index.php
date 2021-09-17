@@ -1,11 +1,9 @@
 <?php
 
-session_start();
-$_SESSION['status'] = 'OK';
 
 include("./header.php");
-include("./functions.php");
 
+session_start();
 
 function getCurrentTime() {
     date_default_timezone_set('America/Sao_Paulo');   
@@ -14,110 +12,116 @@ function getCurrentTime() {
 
 ?>
 
-<div class="card">
-  <div class="card-container"> 
-
-    <form action="" method="POST" autocomplete="off">
-        <div class="form">       
-                
-            <div class="form-info"> 
-                    
-                <label for="name">Nome </label>
-                    <input type="text" name="nome" max="150" required> 
-                <label for="name">CPF </label>
-                    <input type="text" name="cpf" onpaste="return false;" 
-                    autocomplete="off" onkeypress="return isNumber(event)"
-                    minlength="11" maxlength="11"> 
-                <label for="name">Data Nascimento </label>
-                    <input type="date" name="data-nasc" max="<?php getCurrentTime() ?>" required/>
-                <label for="name">Data Cadastro </label>
-                    <input type="date" name="data-cad" value="<?php getCurrentTime()?>" readonly />
-                <label for="name">Renda Familiar </label>
-                    <input type="number" name="renda" min="0"/>
-                    <input type="submit" value="Submit" name="submit-btn">
-            </div>
-        </div>
-
-      </form>
-
-  </div>
-</div>
-
-    <?php 
-
-    if($_SESSION['status'] == 'fail') {
-      echo ' <div class="alert">
-              <span>Numero de Cpf inválido!</span>          
-           </div>
-           ';
-      session_unset();
-    }     
-    
-  ?>  
-
-<div class="card">
-    <div class="card-container"> 
-
-    <!-- <form action="" method="POST">
-      <div class="form">       
-        
-        <div class="form-info"> 
-
-          <div class="form-info-group-1">  
-            <label for="name">Nome </label>
-            <div class="form-name">
-              <input type="text" name="name">
-            </div>        
-            
-            <label for="name">CPF </label>
-            <div class="form-phone">
-              <input type="email" name="cpf">
-            </div>              
-          </div>
+<section class="home-section">  
+  <div class="card">
+      <div class="card-container">  
+  
+      <form action="" method="POST" autocomplete="off">
+          <div class="form">   
           
-          <div class="form-info-group-2">
+          <table>
+              <thead>
+                  <tr>
+                      <th>Cadastro</th>  
+                      <th></th>                          
+                  </tr>
+              </thead>
+              <tbody>
             
-            <label for="name">Data de Nascimento </label>
-            <div class="form-sob">
-              <input type="date" name="data-nasc">
-            </div>
-            
-            <label for="name">Data de Cadastro </label>
-            <div class="form-email">
-              <input type="text" name="data-cad" disabled value="">
-            </div>  
-
-            <label for="name">Renda Familiar </label>
-            <div class="form-email">
-              <input type="text" name="renda" >
-            </div>             
-          </div>  
-
-        </div>
-
-        <div class="form-btn">
-          <input type="button" value="ENVIAR">
-        </div>   
-
+                  <tr>                   
+                      <td>
+                          <label for="name">Nome </label>
+                      </td> 
+                      <td>
+                          <input type="text" name="nome" max="150" required>
+                      </td> 
+                  </tr> 
+                  <tr>                   
+                      <td>
+                          <label for="name">CPF </label>
+                      </td> 
+                      <td>
+                          <input type="text" name="cpf" onpaste="return false;" 
+                      autocomplete="off" onkeypress="return isNumber(event)"
+                      minlength="11" maxlength="11">
+                      </td> 
+                  </tr> 
+                  <tr>                   
+                      <td>
+                          <label for="name">Data Nascimento</label>
+                      </td> 
+                      <td>
+                          <input type="date" name="data-nasc" max="<?php getCurrentTime() ?>" required>
+                      </td> 
+                  </tr> 
+                  <tr>                   
+                      <td>
+                          <label for="name">Data Cadastro</label>
+                      </td> 
+                      <td>
+                          <input type="date" name="data-cad" value="<?php getCurrentTime()?>" readonly>
+                      </td> 
+                  </tr> 
+                  <tr>                   
+                      <td>
+                          <label for="number">Renda Familiar</label>
+                      </td> 
+                      <td>
+                          <input type="text" name="renda">
+                      </td> 
+                  </tr>   
+              </tbody>   
+          </table>
+  
+          <input class="btn-cad" type="submit" value="Submit" name="submit-cad">       
+  
+          </div>
+        </form>
+  
       </div>
-    </form>  -->
+  </div>
+</section>
 
-    </div>
+  <?php 
 
-    <script>
+if($_SESSION['cpf-status'] == 'fail') {
+  echo ' <div class="alert">
+          <span>Numero de Cpf inválido!</span>          
+       </div>
+       ';
+       unset($_SESSION['cpf-status']);
+} 
 
-        function isNumber(evt) {
-            evt = (evt) ? evt : window.event;
-            var charCode = (evt.which) ? evt.which : evt.keyCode;
-            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-                return false;
-            }
+if($_SESSION['cadastro'] == 'success') {
+  echo ' <div class="alert">
+          <span>Operação bem Sucedida!</span>          
+       </div>
+       ';
+       unset($_SESSION['cadastro']);
+
+}
+
+?>  
+
+
+<script src="./js/nav.js"></script>
+<script>
+    
+
+function isNumber(evt) {
+    evt = (evt) ? evt : window.event;
+      var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+       }
             return true;
         }
 
-    </script>
+</script>
 
-</div>
+
+
+
 
 
 
