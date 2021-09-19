@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./Styles/index.css">
     <link rel="stylesheet" href="./Styles/header.css">
-    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>       
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>   
+    
     <script src="https://code.jquery.com/jquery-3.6.0.js"
      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
      crossorigin="anonymous">
@@ -49,7 +51,7 @@
      </li>
 
      <li>
-       <a href="http://localhost/Card-clientes/relatorio.php">
+       <a href="http://localhost/Card-clientes/relatorio.php?filter=all">
          <i class='bx bx-pie-chart-alt-2' ></i>
          <span class="links_name">Relatório</span>
        </a>
@@ -59,13 +61,17 @@
     
      <li class="profile">
          <div class="profile-details">
-           <img src="https://media-exp1.licdn.com/dms/image/D4D35AQGsv3KKN7roWg/profile-framedphoto-shrink_200_200/0/1630446551579?e=1631919600&v=beta&t=apWihw11_SGUO3HxAj__XXU3hvWzR1Vd4eZpwNKWy2Y" alt="profileImg">
+           <img src="./img/logo.jpg" alt="profileImg">
            <div class="name_job">
              <div class="name">Fabio Augusto</div>
              <div class="job">Web developer</div>
            </div>
          </div>
-         <i class='bx bx-log-out' id="log_out" ></i>
+         <div class="linkedin">
+           <a href="https://www.linkedin.com/in/fabio-augusto-5b099a10a/">
+             <i class='bx bxl-linkedin-square' id="log_out" ></i>
+          </a>
+         </div>
      </li>
     </ul>
   </div>

@@ -269,7 +269,7 @@ header {
 
   .sidebar li {
     height: 35px;
-    line-height: 35px;
+    line-height: 30px;
     opacity: 0;
     transition: all 0.5s ease;
   }
@@ -286,6 +286,7 @@ header {
   }
   .sidebar.open li.profile {
     width: 100%;
+    height: 80px;
   }
 
   .home-section {
@@ -293,8 +294,7 @@ header {
     width: 100%;
   }
 
-  /* .sidebar .logo-details #btn {
-    top: 42%;
-    right: -6px;
-  } */
+  .linkedin a:hover {
+    color: #fff !important;
+  }
 }

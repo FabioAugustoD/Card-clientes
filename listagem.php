@@ -17,54 +17,69 @@
 
 
 <section class="home-section">
-<div class="card">
-    <div class="card-container">  
+    <div class="card">
+        <div class="card-container">  
+            
+            <div class="card-conteiner-search">
+                <form action="" method="POST">
+                    <input class="input-search" type="text" name="nome">
+                    <input class="btn-search" type="submit" name="submit-search" value="Procurar">
+                </form>
+            </div>
+            
+            <form action="" method="POST">                                              
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Renda</th>
+                            <th class="hidden"></th>    
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php for ($i=0; $i < count($result) ; $i++) { ?>
+                        <tr key="<?php echo $result[$i]['id']?>">
+                                <td>
+                                    <input type="text" class="input-name" readonly value="<?php echo $result[$i]['Nome'] ?>">
+                                </td>                           
+                                <td>                           
+                                    <input id ="<?php echo $result[$i]['id']?>" name="renda"  type="text" readonly class="input-badge" value="R$ <?php echo $result[$i]['Renda'] ?>">
+                                </td>                    
+                                <td class="hidden-col">  
+                                <input type="radio" name="id-info" value="<?php echo $result[$i]['id'] ?>">   
+                                </td>                                                  
+                            </tr> 
+                            <?php } ?>  
+                    </tbody>   
+                </table>
+                    <input type="submit" value="Editar" name="submit-info" class="btn-info">                            
+                    <input type="submit" value="Excluir" name="submit-del" class="btn-del">                      
+            </form>  
+            
+            <?php 
+          if(isset($_SESSION['status']) && $_SESSION['status'] != '') {
+          ?>
 
-    <div class="card-conteiner-search">
-        <form action="" method="POST">
-            <input class="input-search" type="text" name="nome">
-            <input class="btn-search" type="submit" name="submit-search" value="Procurar">
-        </form>
+            <div class="form-msg-alert">
+              <div>
+                <span><?php echo $_SESSION['status'];?></span>
+              </div>            
+            </div>
+
+          <?php
+            unset($_SESSION['status']);    
+          }
+          ?>
+
+        </div>
     </div>
-        
-        <table>
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Renda</th>
-                    <th class="hidden"></th>    
-                </tr>
-            </thead>
-            <tbody>
-            <?php for ($i=0; $i < count($result) ; $i++) { ?>
-                <tr key="<?php echo $result[$i]['id']?>">
-                    <form action="" method="POST">
-                        <td class="hidden">
-                            <input type="number" name="id-info" readonly hidden value="<?php echo $result[$i]['id'] ?>">
-                        </td>                        
-                        <td>
-                            <input type="text" class="input-name" readonly value="<?php echo $result[$i]['Nome'] ?>">
-                        </td>                           
-                        <td>                           
-                            <input id ="<?php echo $result[$i]['id']?>" name="renda" type="text" readonly class="input-badge" value="R$ <?php echo $result[$i]['Renda'] ?>">                                  
+</section>
 
-                        </td>                    
-                        <td class="hidden-col">                            
-                                <input type="submit" value="i" name="submit-info" class="btn-info">                            
-                        <input type="submit" value="x" name="submit-del" class="btn-del">                      
-                        </td>                            
-                    </form>                 
-                </tr> 
-            <?php } ?>  
-            </tbody>   
-        </table>
+ 
 
-    </div>
-</div>
 
 
 <script src="./js/nav.js"></script>
-</section>
 
 <script>
     
@@ -84,7 +99,7 @@
         else if (value > 980 && value < 2500) 
             el[i].style.backgroundColor = '#ffcf87'            
         else 
-            el[i].style.backgroundColor = '#70f68c'        
+            el[i].style.backgroundColor = '#70f68cbf'        
     }
 
     

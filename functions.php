@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 if(isset($_POST['submit-cad'])){  
 
     $inputData = [
@@ -18,15 +20,25 @@ if(isset($_POST['submit-cad'])){
             $checkCpf = $client->verifyCpf($cpf);
             if(!empty($checkCpf)) {      
                 //Cpf existente  
+                $_SESSION['status'] = 'Este CPF já está cadastrado!';              
+                // $_SESSION['status_code'] = 'error';    
+                // header('Location: https://localhost/Card-clientes/index.php');               
                 return false ;
             } else {        
                 $client->setClient($inputData);
-                $_SESSION['cadastro'] = 'success'; 
-                header('Location: https://localhost/Card-clientes/');
+                $_SESSION['status'] = 'Cliente cadastrado com sucesso!';              
+                // $_SESSION['status_code'] = 'success';              
+                // header('Location: https://localhost/Card-clientes/index.php');
                 return true ;
             } 
         
-    }   
+    } 
+
+    $_SESSION['status'] = 'Este CPF é inválido!';              
+    // $_SESSION['status_code'] = 'error';    
+    // header('Location: https://localhost/Card-clientes/index.php?status=fail');
+
+    
     
 }     
 
@@ -43,7 +55,11 @@ if(isset($_POST['submit-del'])) {
     
     $inputData =  $_POST['id-info']; 
     $client = new Client();
-    $client->deleteClient($inputData); 
+    $client->deleteClient($inputData);
+    $_SESSION['status'] = 'Cliente Excluído!';              
+    $_SESSION['status_code'] = 'success'; 
+    header('Location: https://localhost/Card-clientes/listagem.php');
+
 }
 
 if(isset($_POST['submit-up'])) {
@@ -60,22 +76,29 @@ if(isset($_POST['submit-up'])) {
     $cpf = $_POST['cpf'];
 
     if(validaCPF($inputData) === true) {
-        // echo 'Cpf valido';
-        if ($_SESSION['cpf'] === $cpf) {
-                $client->updateClient($inputData);   
 
+        // echo 'Cpf Existente';
+        if ($_SESSION['cpf'] == $cpf) {
+                $client->updateClient($inputData);
+                $_SESSION['status'] = 'Cliente Atualizado com sucesso!';  
+                
+                return true;
         } else {
 
             $checkCpf = $client->verifyCpf($cpf);
             if(!empty($checkCpf)) {      
-                echo 'Cpf existente no Banco!';
+                $_SESSION['status'] = 'Este CPF já está cadastrado!'; 
                 return false ;
             } else {        
                 $client->updateClient($inputData);
+                $_SESSION['status'] = 'Cliente Atualizado com sucesso!'; 
                 return true ;
             } 
         }
     }
+
+    $_SESSION['status'] = 'Este CPF é inválido!';
+    
 }
 
 
@@ -110,8 +133,8 @@ function validaCPF($inputData) {
             $d += $newCpf[$c] * (($t + 1) - $c);
         }
         $d = ((10 * $d) % 11) % 10;
-        if ($newCpf[$c] != $d) {
-            $_SESSION['cpf-status'] = 'fail';                   
+        if ($newCpf[$c] != $d) {  
+                                         
             return false ;                
         }
     }
